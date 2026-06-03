@@ -45,5 +45,7 @@ class Sanitizacion {
     public static function validarSecreto($secret) {
         return preg_match('/^[A-Z2-7=]+$/', $secret) ? $secret : false;
     }
+
+    
 }
 ?>

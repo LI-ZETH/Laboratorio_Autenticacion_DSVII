@@ -1,7 +1,7 @@
 <?php
 try {
     // Conexión con root para crear la base
-    $pdo = new PDO("mysql:host=localhost", "root", "NochuMochi13");
+    $pdo = new PDO("mysql:host=localhost", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Crear base si no existe

@@ -13,7 +13,7 @@ class Registro {
     }
 
     // Registrar un nuevo usuario
-    public function registrarUsuario($nombre, $apellido, $usuario, $correo, $password, $sexo) {
+    public function registrarUsuario($nombre, $apellido, $usuario, $correo, $password, $confirm_password, $sexo) {
         // Sanitización
         $nombre   = Sanitizacion::limpiarTexto($nombre);
         $apellido = Sanitizacion::limpiarTexto($apellido);
@@ -27,6 +27,10 @@ class Registro {
         if (!$correo || !$sexo) {
             return "Datos inválidos (correo o sexo).";
         }
+
+        $val = $this->validarContrasenas($password, $_POST['confirm_password']);
+        if ($val !== true) return $val;
+
 
         // Validar duplicados
         $stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE correo = ? OR usuario = ?");
@@ -46,5 +50,14 @@ class Registro {
             return "Error al registrar usuario.";
         }
     }
+
+    private function validarContrasenas($pass, $confirm) {
+    if ($pass !== $confirm) return "Las contraseñas no coinciden.";
+    if (strlen($pass) < 8) return "La contraseña debe tener al menos 8 caracteres.";
+    if (!preg_match('/[A-Z]/', $pass) || !preg_match('/[a-z]/', $pass) || !preg_match('/\d/', $pass)) {
+        return "La contraseña debe contener mayúscula, minúscula y número.";
+    }
+    return true;
+}
 }
 ?>

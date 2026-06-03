@@ -1,26 +1,37 @@
-// Validaciones básicas en frontend
-document.addEventListener("DOMContentLoaded", function() {
-    const form = document.querySelector("form");
+// Validaciones unificadas en frontend
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form');
+  if (!form) return;
 
-    if (form) {
-        form.addEventListener("submit", function(event) {
-            const password = document.querySelector("input[name='password']");
-            const password2 = document.querySelector("input[name='password2']");
-            const email = document.querySelector("input[name='correo']");
+  form.addEventListener('submit', (e) => {
+    const pwdInput = form.querySelector("input[name='password']");
+    const confInput = form.querySelector("input[name='confirm_password']");
+    const emailInput = form.querySelector("input[name='correo']");
 
-            // Validar contraseñas coincidentes
-            if (password && password2 && password.value !== password2.value) {
-                alert("Las contraseñas no coinciden.");
-                event.preventDefault();
-                return;
-            }
+    const pwd = pwdInput ? pwdInput.value : '';
+    const conf = confInput ? confInput.value : '';
 
-            // Validar formato de correo
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-                alert("Correo electrónico inválido.");
-                event.preventDefault();
-                return;
-            }
-        });
+    // Contraseña: longitud y complejidad
+    const okLength = pwd.length >= 8;
+    const okComplex = /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) && /\d/.test(pwd);
+    if (!okLength || !okComplex) {
+      e.preventDefault();
+      alert('La contraseña debe tener al menos 8 caracteres, mayúscula, minúscula y número.');
+      return;
     }
+
+    // Coincidencia de contraseñas
+    if (pwd !== conf) {
+      e.preventDefault();
+      alert('Las contraseñas no coinciden.');
+      return;
+    }
+
+    // Validar formato de correo
+    if (emailInput && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+      e.preventDefault();
+      alert('Correo electrónico inválido.');
+      return;
+    }
+  });
 });

@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_POST['usuario'],
         $_POST['correo'],
         $_POST['password'],
+        $_POST['confirm_password'],
         $_POST['sexo']
     );
 

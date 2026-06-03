@@ -12,14 +12,20 @@ h2 {
     text-align: center;
 }
 
+
 /* Formularios */
 form {
-    max-width: 400px;
+    width: min(100%, 600px);
     margin: 20px auto;
-    padding: 20px;
+    padding: 40px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+.form-group {
+    margin-bottom: 15px;
+    padding: 0 10px;
 }
 
 label {
@@ -27,6 +33,8 @@ label {
     margin-top: 10px;
     font-weight: bold;
 }
+
+
 
 input, select, button {
     width: 100%;
@@ -55,3 +63,24 @@ p {
     font-size: 14px;
     color: #444;
 }
+
+/* Panel animations for light transitions between views */
+.panel {
+    opacity: 0;
+    transform: translateY(8px) scale(0.997);
+    transition: opacity 360ms cubic-bezier(.2,.9,.2,1), transform 360ms cubic-bezier(.2,.9,.2,1);
+    will-change: opacity, transform;
+}
+.panel.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* subtle exit effect used when navigating away */
+.panel.exit {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.995);
+}
+
+/* small button micro-interaction */
+.btn:hover { transform: translateY(-2px); transition: transform 160ms ease; }

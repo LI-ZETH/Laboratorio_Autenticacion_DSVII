@@ -1,0 +1,10 @@
+{
+    "name": "genes/laboratorio_autenticacion_dsvii",
+    "description": "Sistema de autenticación con login y 2FA para laboratorio de Software VII",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "sonata-project/google-authenticator": "^2.3"
+    }
+}

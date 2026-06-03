@@ -9,7 +9,6 @@ if (!isset($_SESSION['usuario'])) {
 
 $usuario = htmlspecialchars($_SESSION['usuario']);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,17 +17,19 @@ $usuario = htmlspecialchars($_SESSION['usuario']);
     <link rel="stylesheet" href="../Assets/Estilos.css">
 </head>
 <body>
-    <h2>Bienvenido al Dashboard</h2>
-    <p>Hola, <?php echo $usuario; ?>. Has iniciado sesión correctamente con 2FA.</p>
+    <div class="panel visible">
+        <h2>Bienvenido al Dashboard</h2>
+        <p>Hola, <?php echo $usuario; ?>. Has iniciado sesión correctamente con 2FA.</p>
 
-    <nav>
-        <ul>
-            <li><a href="Perfil.php">Perfil</a></li>
-            <li><a href="Configuraciones.php">Configuraciones</a></li>
-            <li><a href="CerrarSesion.php">Cerrar Sesión</a></li>
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="Perfil.php" class="btn">Perfil</a></li>
+                <li><a href="Tablas.php" class="btn">Tablas</a></li>
+                <li><a href="CerrarSesion.php" class="btn">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
 
-    <p>Este es tu espacio seguro dentro del sistema.</p>
+        <p>Este es tu espacio seguro dentro del sistema.</p>
+    </div>
 </body>
 </html>

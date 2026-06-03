@@ -10,8 +10,8 @@ body {
 h2 {
     color: #333;
     text-align: center;
+    margin-bottom: 20px;
 }
-
 
 /* Formularios */
 form {
@@ -34,8 +34,6 @@ label {
     font-weight: bold;
 }
 
-
-
 input, select, button {
     width: 100%;
     padding: 8px;
@@ -45,16 +43,23 @@ input, select, button {
 }
 
 /* Botones */
-button {
+button, .btn {
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
     margin-top: 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    text-align: center;
 }
 
-button:hover {
+button:hover, .btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
+    transition: transform 160ms ease;
 }
 
 /* Mensajes */
@@ -64,7 +69,7 @@ p {
     color: #444;
 }
 
-/* Panel animations for light transitions between views */
+/* Panel animations */
 .panel {
     opacity: 0;
     transform: translateY(8px) scale(0.997);
@@ -75,12 +80,35 @@ p {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
-
-/* subtle exit effect used when navigating away */
 .panel.exit {
     opacity: 0;
     transform: translateY(-8px) scale(0.995);
 }
 
-/* small button micro-interaction */
-.btn:hover { transform: translateY(-2px); transition: transform 160ms ease; }
+/* Tablas */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e6f2ff;
+}

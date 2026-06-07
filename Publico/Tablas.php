@@ -12,8 +12,12 @@ $db = new DB();
 $conn = $db->conectar();
 
 // Traer todos los usuarios
-$stmt = $conn->query("SELECT nombre, apellido, usuario, correo, sexo FROM usuarios ORDER BY id ASC");
-$usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmtUsuarios = $conn->query("SELECT nombre, apellido, correo FROM usuarios ORDER BY id ASC");
+$usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+
+// Traer registros de acceso
+$stmtAccesos = $conn->query("SELECT usuario, cantidad_ingresos FROM registros_acceso ORDER BY cantidad_ingresos DESC");
+$accesos = $stmtAccesos->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +30,7 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="panel visible">
         <h2>Tablas de Usuarios</h2>
 
-        <!-- Primera tabla: nombre, apellido y correo -->
+        <!-- Primera tabla: usuarios -->
         <h3>Datos principales de los usuarios</h3>
         <table>
             <tr>
@@ -43,17 +47,17 @@ $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
 
-        <!-- Segunda tabla: usuario y género -->
-        <h3>Usuarios y su género</h3>
+        <!-- Segunda tabla: registros de acceso -->
+        <h3>Cantidad de ingresos al sistema</h3>
         <table>
             <tr>
                 <th>Usuario</th>
-                <th>Sexo</th>
+                <th>Cantidad de ingresos</th>
             </tr>
-            <?php foreach ($usuarios as $fila): ?>
+            <?php foreach ($accesos as $fila): ?>
             <tr>
                 <td><?php echo htmlspecialchars($fila['usuario']); ?></td>
-                <td><?php echo htmlspecialchars($fila['sexo']); ?></td>
+                <td><?php echo htmlspecialchars($fila['cantidad_ingresos']); ?></td>
             </tr>
             <?php endforeach; ?>
         </table>

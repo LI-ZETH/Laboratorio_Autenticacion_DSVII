@@ -1,15 +1,18 @@
 <?php
 try {
-    // Conexión con root para crear la base
+    // Conexión con root
     $pdo = new PDO("mysql:host=localhost", "root", "NochuMochi13");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Crear base si no existe
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS laboratorio_autenticacion");
+    // Borrar base de datos si existe
+    $pdo->exec("DROP DATABASE IF EXISTS laboratorio_autenticacion");
+
+    // Crear base de datos nuevamente
+    $pdo->exec("CREATE DATABASE laboratorio_autenticacion");
     $pdo->exec("USE laboratorio_autenticacion");
 
-    // Crear tabla si no existe
-    $pdo->exec("CREATE TABLE IF NOT EXISTS usuarios (
+    // Crear tabla usuarios
+    $pdo->exec("CREATE TABLE usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nombre VARCHAR(50) NOT NULL,
         apellido VARCHAR(50) NOT NULL,
@@ -20,7 +23,15 @@ try {
         secret VARCHAR(32) DEFAULT NULL
     )");
 
-    echo "Base de datos y tabla creadas correctamente.";
+    // Crear tabla registros_acceso con usuario único
+    $pdo->exec("CREATE TABLE registros_acceso (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        usuario VARCHAR(50) NOT NULL UNIQUE,
+        cantidad_ingresos INT DEFAULT 0
+    )");
+
+    echo "Base de datos y tablas creadas correctamente.";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+?>

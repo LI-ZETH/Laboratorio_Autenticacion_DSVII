@@ -49,9 +49,18 @@ class Autenticacion {
         $checkResult = $this->ga->checkCode($secret, $codigo, 2); // margen de 2 pasos
 
         if ($checkResult) {
-            // Login exitoso
+            // Login exitoso definitivo
             $_SESSION['usuario'] = $_SESSION['usuario_temp'];
             unset($_SESSION['usuario_temp']);
+
+            // Actualizar cantidad de ingresos en registros_acceso
+            $stmtAcceso = $this->conn->prepare("
+                INSERT INTO registros_acceso (usuario, cantidad_ingresos)
+                VALUES (?, 1)
+                ON DUPLICATE KEY UPDATE cantidad_ingresos = cantidad_ingresos + 1
+            ");
+            $stmtAcceso->execute([$_SESSION['usuario']]);
+
             return "Autenticación exitosa. Bienvenido al sistema.";
         } else {
             return "Código 2FA inválido.";
